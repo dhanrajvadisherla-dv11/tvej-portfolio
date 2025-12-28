@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tvej Sarangi | First Year CSE Student</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #22d3ee;
+      --accent-soft: rgba(34, 211, 238, 0.08);
+      --border: #1f2937;
+      --accent-strong: #38bdf8;
+      --danger: #f97373;
+      --success: #4ade80;
+      --warning: #facc15;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 40px;
+    }
+
+    header {
+      background: linear-gradient(
+        135deg,
+        rgba(34, 211, 238, 0.15),
+        rgba(59, 130, 246, 0.05)
+      );
+      border-radius: 24px;
+      padding: 32px 24px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, #38bdf81a 0, transparent 55%);
+      pointer-events: none;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero-main {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1.4;
+      min-width: 260px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #e5f3ff;
+    }
+
+    .hero-subtitle {
+      margin-top: 4px;
+      font-size: 18px;
+      color: var(--accent-strong);
+      font-weight: 500;
+    }
+
+    .hero-college {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .hero-description {
+      margin-top: 16px;
+      color: var(--text);
+      max-width: 36rem;
+      font-size: 14px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: none;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.45);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: rgba(15, 23, 42, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .hero-badge {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      padding: 16px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.6);
+      width: 230px;
+    }
+
+    .hero-card-title {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-card-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-role {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .hero-card-list {
+      list-style: none;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-card-list li + li {
+      margin-top: 4px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.25fr) minmax(0, 1.6fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 880px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        padding: 24px 18px;
+      }
+      .hero-main {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-badge {
+        justify-content: flex-start;
+      }
+    }
+
+    section {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      padding: 18px 18px 20px;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      margin-bottom: 16px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-icon {
+      font-size: 20px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .key-list {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .key-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(31, 41, 55, 0.9);
+    }
+
+    .key-list li:last-child {
+      border-bottom: none;
+    }
+
+    .key-term {
+      color: var(--muted);
+    }
+
+    .key-value {
+      font-weight: 500;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    .pill-strong {
+      border-color: rgba(34, 211, 238, 0.8);
+      color: var(--accent-strong);
+      background: var(--accent-soft);
+    }
+
+    .table-wrapper {
+      margin-top: 8px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    thead {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    tbody tr:hover {
+      background: rgba(30, 64, 175, 0.4);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .badge-good {
+      background: rgba(22, 163, 74, 0.12);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+    }
+
+    .badge-mid {
+      background: rgba(250, 204, 21, 0.12);
+      color: #facc15;
+      border: 1px solid rgba(234, 179, 8, 0.7);
+    }
+
+    .badge-low {
+      background: rgba(248, 113, 113, 0.12);
+      color: #f97373;
+      border: 1px solid rgba(248, 113, 113, 0.8);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 10px;
+      padding: 14px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="tag">
+        <span class="tag-dot"></span>
+        <span>First Year · Computer Science</span>
+      </div>
+
+      <div class="hero-main">
+        <div class="hero-text">
+          <h1 class="hero-title">Tvej Sarangi</h1>
+          <p class="hero-subtitle">B.Tech Computer Science Student</p>
+          <p class="hero-college">N.K. Orchid College of Engineering and Technology, Solapur</p>
+
+          <p class="hero-description">
+            I am a first‑year Computer Science student who loves exploring new technologies
+            and understanding how software can transform everyday life. I enjoy solving
+            problems, learning by building projects, and combining my passion for fitness
+            with the discipline needed in engineering.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary">
+              View Academic Profile
+              <span>↗</span>
+            </button>
+            <button class="btn btn-outline">
+              Contact Student
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-badge">
+          <div class="hero-card">
+            <p class="hero-card-title">Profile Snapshot</p>
+            <p class="hero-card-name">Tvej Sarangi</p>
+            <p class="hero-card-role">CSE · First Year · Roll No. 54</p>
+            <ul class="hero-card-list">
+              <li>College: N.K. Orchid COET, Solapur</li>
+              <li>Degree: B.Tech – Computer Science</li>
+              <li>Interests: Technology, Powerlifting, Poetry</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <!-- About -->
+        <section>
+          <div class="section-header">
+            <span class="section-icon">👨‍🎓</span>
+            <h2 class="section-title">About Me</h2>
+          </div>
+          <p>
+            My name is <strong>Tvej Sarangi</strong>, and I am from Solapur. I am currently
+            pursuing a B.Tech in Computer Science as a first‑year student at N.K. Orchid
+            College of Engineering and Technology. I am passionate about learning new
+            technologies and exploring how software can shape the future.
+          </p>
+          <p>
+            I enjoy understanding how things work at a deeper level and applying that
+            knowledge to practical problems. I hope to grow into a well‑rounded engineer
+            who can contribute to meaningful projects while also following my passion for
+            fitness and strength sports.
+          </p>
+        </section>
+
+        <!-- Academic Profile -->
+        <section>
+          <div class="section-header">
+            <span class="section-icon">🎓</span>
+            <h2 class="section-title">Academic Profile</h2>
+          </div>
+          <ul class="key-list">
+            <li>
+              <span class="key-term">Degree</span>
+              <span class="key-value">B.Tech – Computer Science</span>
+            </li>
+            <li>
+              <span class="key-term">Year</span>
+              <span class="key-value">First Year</span>
+            </li>
+            <li>
+              <span class="key-term">Division / Batch</span>
+              <span class="key-value">I / I3</span>
+            </li>
+            <li>
+              <span class="key-term">Roll Number</span>
+              <span class="key-value">54</span>
+            </li>
+            <li>
+              <span class="key-term">Occupation</span>
+              <span class="key-value">Student</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Career Objective -->
+        <section>
+          <div class="section-header">
+            <span class="section-icon">🎯</span>
+            <h2 class="section-title">Career Objective</h2>
+          </div>
+          <p>
+            My goal is to become a future‑ready Computer Engineer by mastering modern
+            technologies and continuously improving my problem‑solving skills. I want to
+            build software that is reliable, efficient, and helpful for people.
+          </p>
+          <p>
+            Alongside my academic journey, I aspire to compete in powerlifting and
+            bodybuilding at the national level. I believe the discipline, consistency,
+            and hard work required in strength sports perfectly align with the mindset
+            needed to succeed in engineering.
+          </p>
+        </section>
+      </div>
+
+      <div>
+        <!-- Hobbies & Interests -->
+        <section>
+          <div class="section-header">
+            <span class="section-icon">🚀</span>
+            <h2 class="section-title">Hobbies & Interests</h2>
+          </div>
+          <p>
+            Outside academics, I actively work on my physical fitness and creativity.
+            These hobbies help me stay focused, disciplined, and mentally strong.
+          </p>
+          <div class="pill-list">
+            <span class="pill pill-strong">Gym &amp; Powerlifting</span>
+            <span class="pill">Strength Training</span>
+            <span class="pill">Bodybuilding Goals</span>
+            <span class="pill">Writing Poetry</span>
+            <span class="pill">Learning New Technology</span>
+          </div>
+        </section>
+
+        <!-- First Year Performance -->
+        <section>
+          <div class="section-header">
+            <span class="section-icon">📊</span>
+            <h2 class="section-title">First Year Performance</h2>
+            <span class="section-sub">Internal / sessional marks overview</span>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Marks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Engineering Mathematics I</td>
+                  <td>7</td>
+                  <td><span class="badge badge-low">Needs more focus</span></td>
+                </tr>
+                <tr>
+                  <td>Engineering Graphics</td>
+                  <td>10</td>
+                  <td><span class="badge badge-mid">Can improve</span></td>
+                </tr>
+                <tr>
+                  <td>Engineering Physics and Materials Science (EPMS)</td>
+                  <td>23</td>
+                  <td><span class="badge badge-good">Strong performance</span></td>
+                </tr>
+                <tr>
+                  <td>Employability Skill Development (ESD)</td>
+                  <td>20</td>
+                  <td><span class="badge badge-good">Good performance</span></td>
+                </tr>
+                <tr>
+                  <td>Elements of Civil Engineering</td>
+                  <td>12</td>
+                  <td><span class="badge badge-mid">Moderate</span></td>
+                </tr>
+                <tr>
+                  <td>Elements of Mechanical Engineering</td>
+                  <td>4</td>
+                  <td><span class="badge badge-low">Needs attention</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      © 2025 Tvej Sarangi · First Year CSE · N.K. Orchid College of Engineering and Technology
+    </footer>
+  </div>
+</body>
+</html>
